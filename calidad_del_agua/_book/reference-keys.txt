@@ -1,6 +1,5 @@
 fig:nice-fig
 tab:nice-tab
-tesis-de-calidad-de-agua-del-rio-de-rimac-del-año-2009-2015
 intro
 literature
 methods

@@ -1,6 +1,6 @@
 --- 
 title: "TRABAJO DE CALIDAD DE AGUA RIMAC"
-author: "Luis Edgar Gutierrez Saldaña"
+author: "Luis  Gutierrez Saldaña"
 date: "`r Sys.Date()`"
 output:
   word_document: default
@@ -15,13 +15,13 @@ description: This is a minimal example of using the bookdown package to write a 
   The output format for this example is bookdown::gitbook.
 site: bookdown::bookdown_site
 ---
-# TESIS DE CALIDAD DE AGUA DEL RIO DE RIMAC DEL AÑO 2009-2015
+# TESIS DE CALIDAD DE AGUA DEL RIO DE RIMAC DEL AÑO 2009-2015 {-}
 
-
+podemos observar que las variables se encuentran en diferente escala.
 ```{r}
 library(readxl)
 datosc <- read_excel("data_media.xlsx");datosc
-# podemos observar que las variables se encuentran en diferente escala.
+
 ```
 
 ```{r}
