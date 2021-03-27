@@ -1,3 +1,8 @@
-# Literature
-
-
+# 2.OBJETIVOS {-}
+El objetivo principal de este estudio es determinar patrones de variación temporal de
+la calidad de agua en el sector de la bocatoma de La Atarjea, Río Rímac.
+Los objetivos específicos son:
+1)  Identificar patrones temporales de variación de la calidad de agua.
+2)  Examinar la variación temporal de cada uno de los parámetros de la calidad de agua.
+3)  Identificar los parámetros de calidad de agua más importantes o relevantes.
+4)  Identificar relaciones entre parámetros de calidad de agua.

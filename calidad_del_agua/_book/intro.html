@@ -24,7 +24,7 @@
 <meta name="author" content="Luis Gutierrez Saldaña" />
 
 
-<meta name="date" content="2021-03-26" />
+<meta name="date" content="2021-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -167,176 +167,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">1</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="methods.html#methods">3</a>.</p>
-<p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="intro.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
-<span id="cb49-2"><a href="intro.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">type =</span> <span class="st">&#39;b&#39;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
-<img src="calidad_del_agua_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
-<p class="caption">
-Figure 1.1: Here is a nice figure!
-</p>
-</div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">1.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">1.1</a>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="intro.html#cb50-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb50-2"><a href="intro.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(iris, <span class="dv">20</span>), <span class="at">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb50-3"><a href="intro.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
-<span id="cb50-4"><a href="intro.html#cb50-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<table>
-<caption><span id="tab:nice-tab">Table 1.1: </span>Here is a nice table!</caption>
-<thead>
-<tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.6</td>
-<td align="right">3.4</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.0</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.4</td>
-<td align="right">2.9</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-</tbody>
-</table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="references.html#ref-R-bookdown" role="doc-biblioref">Xie 2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="references.html#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span>.</p>
+<p>Los programas de monitoreo de calidad de agua de instituciones públicas y privadas generan
+datos de manera transversal, más de dos variables en uno o más puntos de monitoreo, dentro
+del espacio de influencia de determinado proyecto y longitudinalmente por lo menos dos
+veces por año, uno en la épocas seca y otro en la época húmeda. Estos conjuntos de datos se
+pueden organizar en una matriz de datos multivariante, o simplemente matriz de datos,
+cuando son periódicos en una matriz de series de tiempo, en todos los casos, matrices
+complejas y multidimensionales. Los datos son valores de medición de variables o
+parámetros físicos, químicos y biológicos de calidad de agua en diferentes escalas y unidades
+de medida.
+El análisis individual de los datos por variable o parámetro ambiental es la forma de
+evaluación generalizada, tanto en organismos estatales como privados, siendo el objetivo en
+términos de manejo y regulación ambiental no trasgredir el valor del estándar de calidad
+ambiental (ECA) del parámetro. Una perspectiva de comparación estática y estacionaria
+respecto al valor del estándar, donde la finalidad en términos de proximidad es determinar
+cuan cercanos o alejados del ECA se encuentra la medición de determinada variable,
+mientras que la variación de dos mediciones en el tiempo de esa misma variable no es tomada
+en consideración en los informes de monitoreo. El empleo de técnicas estadísticas
+univariadas podría mejorar la información que subyace en los datos generados, y aún más si
+los datos fueran tratados de manera conjunta mediante técnicas de estadística multivariante.
+El enfoque de este estudio obvia el uso y comparación con niveles aceptables de referencia
+para variables de calidad ambiental del agua, como los estándares o niveles máximos
+permisibles, no pretende determinar el cumplimiento o trasgresión de los niveles de
+aceptación de cada variable o parámetro; sino más bien, intenta dar una mirada a las
+fluctuaciones y/o regularidades que muestran los parámetros de calidad de agua en el tiempo,
+como un conjunto y parte de un sistema, asumiendo la complejidad y multidimensionalidad
+de las medidas u observaciones. 2
+El análisis conjunto de variables o los elementos físico-químicos y biológicos de la calidad
+de agua en el sector que corresponde a la bocatoma La Atarjea, cuenca baja del río Rímac,
+desde las perspectiva multivariante, puede considerarse como una primera aproximación a
+un enfoque de integridad ecológica, ecosistemas acuáticos, cuyos elementos (variables
+ambientales) se encuentran interactuando entre sí, manifestando variaciones en el tiempo.
+Además de ser una herramienta de soporte de medidas de manejo y seguimiento tanto para
+gestores ambientales como para tomadores de decisiones.
+El uso de técnicas multivariantes en el análisis de variaciones espacio-temporales de la
+calidad de agua de cuerpos acuáticos continentales, tanto lénticos como lóticos es una
+práctica que se ha ido incrementando en las últimas décadas, en la medida que, las
+herramientas de análisis han ido mejorando e incorporando algoritmos matemáticos más
+asequibles, comprensibles y específicos para un determinado fin, en programas o paquetes
+estadísticos comerciales o libres, tanto para la exploración como para la inferencia de datos.
+En ese mismo sentido ha avanzado la accesibilidad a la literatura científica y sobre todo a
+los informes de monitoreo donde se presentan los datos o valores de las variables ambientales
+monitoreadas, un aspecto que era limitante para investigadores que estaban interesados en la
+dinámica de la calidad del agua, en términos de tiempo y aún más en recursos financieros
+para la toma de muestras y el análisis en laboratorio.
+Las técnicas de análisis multivariante tienen como objetivo reducir la complejidad y
+multidimensionalidad de la matriz de datos a nuevas dimensiones de análisis, lo que permite
+responder, entre otras cuestiones: ¿Existen evidencias estadísticas de cambios en el tiempo?
+¿Cómo es la variación de la calidad del agua en el río Rímac? ¿Existe evidencia estadística
+de un patrón temporal de calidad de agua? ¿Cuál o cuáles son los parámetros o variables
+ambientales más importantes que influyen en la dinámica temporal de la calidad del agua?
+¿Cuál es la relación entre parámetros? ¿Están todos los parámetros relacionados?
+La data de estudio ha sido originada por el programa de monitoreo de calidad de agua del
+río Rímac, en el sector de la bocatoma La Atarjea, de la empresa SEDAPAL. Los datos
+corresponden a la media mensual de las dos bocatomas existentes y han sido obtenidos
+mediante el mecanismo de acceso a la información pública.</p>
 
 </div>
             </section>

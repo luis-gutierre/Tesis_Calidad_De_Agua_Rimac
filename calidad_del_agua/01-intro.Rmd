@@ -1,21 +1,57 @@
-# Introduction {#intro}
+# 1.INTRODUCCION {-}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
-
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+Los programas de monitoreo de calidad de agua de instituciones públicas y privadas generan 
+datos de manera transversal, más de dos variables en uno o más puntos de monitoreo, dentro
+del espacio de influencia de determinado proyecto y longitudinalmente por lo menos dos 
+veces por año, uno en la épocas seca y otro en la época húmeda. Estos conjuntos de datos se 
+pueden organizar en una matriz de datos multivariante, o simplemente matriz de datos, 
+cuando son periódicos en una matriz de series de tiempo, en todos los casos, matrices 
+complejas y multidimensionales. Los datos son valores de medición de variables o 
+parámetros físicos, químicos y biológicos de calidad de agua en diferentes escalas y unidades 
+de medida. 
+El análisis individual de los datos por variable o parámetro ambiental es la forma de 
+evaluación generalizada, tanto en organismos estatales como privados, siendo el objetivo en 
+términos de manejo y regulación ambiental no trasgredir el valor del estándar de calidad 
+ambiental (ECA) del parámetro. Una perspectiva de comparación estática y estacionaria 
+respecto al valor del estándar, donde la finalidad en términos de proximidad es determinar 
+cuan cercanos o alejados del ECA se encuentra la medición de determinada variable, 
+mientras que la variación de dos mediciones en el tiempo de esa misma variable no es tomada 
+en consideración en los informes de monitoreo. El empleo de técnicas estadísticas 
+univariadas podría mejorar la información que subyace en los datos generados, y aún más si
+los datos fueran tratados de manera conjunta mediante técnicas de estadística multivariante. 
+El enfoque de este estudio obvia el uso y comparación con niveles aceptables de referencia 
+para variables de calidad ambiental del agua, como los estándares o niveles máximos 
+permisibles, no pretende determinar el cumplimiento o trasgresión de los niveles de 
+aceptación de cada variable o parámetro; sino más bien, intenta dar una mirada a las 
+fluctuaciones y/o regularidades que muestran los parámetros de calidad de agua en el tiempo, 
+como un conjunto y parte de un sistema, asumiendo la complejidad y multidimensionalidad 
+de las medidas u observaciones. 2
+El análisis conjunto de variables o los elementos físico-químicos y biológicos de la calidad 
+de agua en el sector que corresponde a la bocatoma La Atarjea, cuenca baja del río Rímac, 
+desde las perspectiva multivariante, puede considerarse como una primera aproximación a 
+un enfoque de integridad ecológica, ecosistemas acuáticos, cuyos elementos (variables 
+ambientales) se encuentran interactuando entre sí, manifestando variaciones en el tiempo. 
+Además de ser una herramienta de soporte de medidas de manejo y seguimiento tanto para 
+gestores ambientales como para tomadores de decisiones.
+El uso de técnicas multivariantes en el análisis de variaciones espacio-temporales de la 
+calidad de agua de cuerpos acuáticos continentales, tanto lénticos como lóticos es una 
+práctica que se ha ido incrementando en las últimas décadas, en la medida que, las 
+herramientas de análisis han ido mejorando e incorporando algoritmos matemáticos más 
+asequibles, comprensibles y específicos para un determinado fin, en programas o paquetes 
+estadísticos comerciales o libres, tanto para la exploración como para la inferencia de datos. 
+En ese mismo sentido ha avanzado la accesibilidad a la literatura científica y sobre todo a 
+los informes de monitoreo donde se presentan los datos o valores de las variables ambientales 
+monitoreadas, un aspecto que era limitante para investigadores que estaban interesados en la 
+dinámica de la calidad del agua, en términos de tiempo y aún más en recursos financieros 
+para la toma de muestras y el análisis en laboratorio.
+Las técnicas de análisis multivariante tienen como objetivo reducir la complejidad y 
+multidimensionalidad de la matriz de datos a nuevas dimensiones de análisis, lo que permite 
+responder, entre otras cuestiones: ¿Existen evidencias estadísticas de cambios en el tiempo? 
+**¿Cómo es la variación de la calidad del agua en el río Rímac?** 
+**¿Existe evidencia estadística de un patrón temporal de calidad de agua?** 
+¿Cuál o cuáles son los parámetros o variables ambientales más importantes que influyen en la dinámica temporal de la calidad del agua? 
+¿Cuál es la relación entre parámetros? ¿Están todos los parámetros relacionados?
+**La data de estudio ha sido originada por el programa de monitoreo de calidad de agua del río Rímac**,
+en el sector de la bocatoma La Atarjea, de la empresa SEDAPAL. Los datos 
+corresponden a la media mensual de las dos bocatomas existentes y han sido obtenidos 
+mediante el mecanismo de acceso a la información pública.
