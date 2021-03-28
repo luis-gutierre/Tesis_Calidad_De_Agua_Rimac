@@ -313,6 +313,8 @@ library(factoextra)
 fviz_pca_biplot(acp, repel = F,
                 col.var = "steelblue",
                 col.ind = "black" )
+###indicadores
+
 ```
 
 
