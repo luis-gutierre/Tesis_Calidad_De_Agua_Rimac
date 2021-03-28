@@ -2,54 +2,54 @@
 
 **3.1 APLICANDO CLUSTER JERARQUICO** 
 
-podemos observar que las variables se encuentran en diferente escala.
 ```{r}
 library(readxl)
-datosc <- read_excel("data_media.xlsx");datosc
+datosc <- read_excel("data_media.xlsx")
 
 ```
 
+Estructura:
+Tenemos 24 variables de formato numerico  y 1 variable en formato character(meses)
 ```{r}
- #estructura
-
 str(datosc)
 ```
+Convirtiendo en un dataframe:
 ```{r}
-#convirtiendo en un dataframe
 datosc=as.data.frame(datosc)
-datosc
 ```
 
 ```{r}
-#lo hacemos con el objetivo que en cluster nos salga 
-#en funcion de nombres de los meses
 rownames(datosc)<- datosc$meses
-datosc
 ```
-
-
+Eliminanos la variable meses(cualitativa)
 ```{r}
-#eliminanos la varaible meses(cualitativa) 
 datosc$meses=NULL
-datosc
+head(datosc,3)
 ```
-
-
+**ANALISIS EXPLORATORIO**
+```{r}
+#Verificando si hay valores faltantes:
+#Detectando y graficando los % de datos perdidos
+#No hay valores perdidos en ninguna variable
+library(DataExplorer)
+library(ggplot2)
+plot_missing(datosc,ggtheme=theme_minimal())
+```
 ```{r}
 #estandarizamos los datos porque las variables se encuentran en diferentes escalas
  datosc <- as.data.frame(scale(datosc))
 ```
 
+**CLUSTER JERARQUICO AGLOMERATIVO**
+Distanicia euclidiana  y metodo de enlace Ward.D2
 ```{r}
-##################################  
-#CLUSTER JERARQUICO AGLOMERATIVO:#
-##################################
+
 
 #-----------------------------------
 #calculando la matriz de disimilaridad
 
 
-#distanicia euclidiana
+
 
 d <- dist(datosc, method = "euclidean")
 
@@ -68,7 +68,7 @@ res.hc <- hclust(d, method = "ward.D2" )
 #En la entapa 2
 #el individuo 8 y el individuo 9 forman un cluster
 
-#y asi sucevamente hasta llegar a la etapa 11 donde se  
+#y asi sucesivamente hasta llegar a la etapa 11 donde se  
 #forma un solo  cluster
 res.hc$merge
 ```
@@ -86,13 +86,9 @@ options(scipen = 999)#sin notacion cientifica
  res.hc$height
 ```
 
-
+**EL NUMERO DE CLUSTER**
 ```{r}
-################################
-#HALLANDO EL NUMERO DE CLUSTER:#
-################################
-
-#hemos considerado que un cambio brusco seria de la etapa 9
+#Hemos considerado que un cambio brusco seria de la etapa 9
 #a la etapa 10,entonces el numero de cluster es 3
 library(ggplot2)
 alturas <- data.frame(etapa=1:11,distancia=res.hc$height)#distancia 
@@ -113,6 +109,9 @@ ggplot(alturas) + aes(x=etapa,y=distancia)  +
 ```{r}
 # Dividir en 3 clusters
 
+
+grp <- cutree(res.hc, k = 3)
+grp 
 #cluster1:
 #enero,mayo,octubre,noviembre y diciembre
 
@@ -121,15 +120,13 @@ ggplot(alturas) + aes(x=etapa,y=distancia)  +
 
 #cluster3:
 #junio,julio,agosto,setiembre
-grp <- cutree(res.hc, k = 3)
-grp 
+
+#La asignacion de cada elemento(meses) a cada cluster
 ```
 
+**DEDONGRAMA**
 
 ```{r}
-############
-#DEDONGRAMA#
-############
 
 #visualizacion de los 3 cluster:
 
@@ -141,10 +138,11 @@ fviz_dend(res.hc, k=3, cex = 0.5,
  
 ```
 
+
+**GRAFICA#ACP con CLUSTER**
+
 ```{r}
-#########################
-#GRAFICA#ACP con CLUSTER#
-#########################
+
 
 #Se puede apreciar que con 2 componentes retenemos 83.8% de la inercia total
 library(factoextra)
