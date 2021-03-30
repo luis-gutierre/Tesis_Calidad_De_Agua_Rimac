@@ -134,9 +134,11 @@ grp
 
 **DEDONGRAMA**
 
+visualizacion de los 3 cluster:
+
 ```{r}
 
-#visualizacion de los 3 cluster:
+
 
 library(factoextra)
 fviz_dend(res.hc, k=3, cex = 0.5,
@@ -144,35 +146,37 @@ fviz_dend(res.hc, k=3, cex = 0.5,
           color_labels_by_k = TRUE, 
           rect=T)
 
-#conclusion del dendograma:
 
-#estiage(fujo bajo del rio):
-
-#junio,julio,agosto y setiembre
-
-#transicion(incremento o disminucion del  flujo del rio):
-
-#octubre, noviembre , diciembre , enero y mayo
-
-#avenida(flujo alto de rio):
- 
-#febrero, marzo y abril.
-
-#En nuestro dendograma concluimos que los meses de transicion son 
-#octubre, noviembre , diciembre , enero y mayo son meses que 
-#esta en un ritmo de cambio o bien sube el nivel del agua del rio 
-#o bien baja el nivel del agua del rio,es decir 
-#para que el nivel del agua del rio sea de flujo alto(avenida),en los
-#meses previos como enero,diciembre,noviembre,octubre tuvo que aumentar
-#de poco a poco el nivel del agua hasta que febrero,marzo y abril 
-#(periodo flujo del rio es alto),luego llegando al mes de mayo 
-#comienza a disminuir el nivel del agua de rio rimac este es el mes transicion
-#despues en los meses posteriores  junio,julio,agosto y setiembre 
-#el nivel flujo del rio es bajo.
 
 
 ```
 
+
+**CONCLUSION DEL DENDOGRAMA:**
+
+**estiage(fujo bajo del rio):**
+
+junio,julio,agosto y setiembre
+
+**transicion(incremento o disminucion del  flujo del rio):**
+
+octubre, noviembre , diciembre , enero y mayo
+
+**avenida(flujo alto de rio):**
+ 
+febrero, marzo y abril.
+
+En nuestro dendograma concluimos que los meses de transicion son 
+octubre, noviembre , diciembre , enero y mayo son meses que 
+esta en un ritmo de cambio o bien sube el nivel del agua del rio 
+o bien baja el nivel del agua del rio,es decir 
+para que el nivel del agua del rio sea de flujo alto(avenida),en los
+meses previos como enero,diciembre,noviembre,octubre tuvo que aumentar
+de poco a poco el nivel del agua hasta que febrero,marzo y abril 
+(periodo flujo del rio es alto),luego llegando al mes de mayo 
+comienza a disminuir el nivel del agua de rio rimac este es el mes transicion,
+despues en los meses posteriores  junio,julio,agosto y setiembre 
+el nivel flujo del rio es bajo.
 ```{r}
 #conclusion del tesista:
 
@@ -192,7 +196,7 @@ fviz_dend(res.hc, k=3, cex = 0.5,
 
 **GRAFICA#ACP con CLUSTER**
 
-GRAFICO 1 
+**GRAFICO 1** 
 ```{r}
 
 
@@ -207,12 +211,15 @@ fviz_cluster(list(data = datosc, cluster = grp),
 
 
 
+**Insumo para un modelo predictivo como regresion lineal**
 
 ```{r}
 # Juntando el archivo de "datos" con la columna de "cluster"
 datos.j <- cbind(datosc,grp)
  
 ```
+
+
 
 ```{r}
 #convirtiendo en factor la varaible "grp" 
@@ -224,17 +231,19 @@ datos.j$grp <- factor(datos.j$grp)
 
 **Analisis de componenentes principales:**
 
+En las variables(24)
 
 ANALISIS EXPLORATORIO :
 ```{r}
 library(GGally)
 ggcorr(datosc)
 
-#Se puede observar  que entre las 24 variables, hay correlaciones muy altas , correlaciones altas  y correlaciones medias.
+#Se puede observar  que entre las 24 variables, 
+#hay correlaciones muy altas , correlaciones altas  y correlaciones medias.
 #esto podria traer problemas de multicolinealidad.
 ```
 
-Prueba de Esfericidad de Bartlett
+**Prueba de Esfericidad de Bartlett**
 
 ```{r}
 library(psych)
@@ -243,9 +252,21 @@ correlaciones<- corr.test(datosc) # se crea la matriz de correlaciones
 library(rela)
 r<-as.matrix(correlaciones$r)
 options(scipen=999)
+n<-dim(datosc) ;n
 cortest.bartlett(r,nrow(datosc))
+```
 
+```{r}
+#¿Por que sucede esto?
 
+#Puede ser que nuestras variables estan altamente correlacionadas,
+#verficamos la determinante de la matriz correlacion de las variables.
+det(correlaciones$r)
+#si la determinante de la matriz correlacion es muy 
+#pequeña pero no es cero indica que mis variables
+#estan altamente intercorrelaciones.
+
+#https://www.uv.es/ceaces/multivari/factorial/matriz.htm
 
 
 # Prueba de Esfericidad de Bartlett
@@ -258,37 +279,43 @@ cortest.bartlett(r,nrow(datosc))
 #conclusion:
 
 #p-valor < 0.05 ,
-#se rechaza la H0, se puede afirmar que las las correlaciones teóricas entre cada par de variables NO es nulo.
+#se rechaza la H0, se puede afirmar que las las correlaciones
+#teóricas entre cada par de variables NO es nulo.
 
-#en otras palabras nuestra matriz correlacion es diferente a la matriz identidad
-#podemos realizar analisis de componentes principales.
+#en otras palabras nuestra matriz correlacion es diferente
+# a la matriz identidad podemos realizar analisis de componentes principales.
 
 
 
 ```
 
-Indicador Kaiser-Meyer-Olkinn KMO y MSA 
+**Indicador Kaiser-Meyer-Olkinn KMO y MSA**
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r}
 library(psych)
-KMO(datosc)     #la advetencia que sale significa que mis varaibles estan altamente correlacionadas
+KMO(datosc)     
+#la advetencia que sale significa que mis variables 
+#estan altamente correlacionadas
 
-#Por otro lado el indicador "kmo" es superior igual 0.5 que indica que puedo trabajar con todas 
+#Por otro lado el indicador "kmo" es superior igual 0.5 
+#que indica que puedo trabajar con todas 
 #las 24 variables
 ```
 
 
 **3.2Análisis de Componentes Principales con el paquete ade4**
 
-CORROBORANDO LA GRAFICA 1
+CORROBORANDO LA **GRAFICA 1**
 
 ¿se podra explicar con 2 componentes todas las 24 variables ?
 
 vamos a comprobar:
 
-En el Grafico 1, se podia apreciar que  con 2 componentes(retiene 83.8% de la inercia total) se podria explicar   todas las 24 variables. 
+En el **Grafico 1**, se podia apreciar que  
+con 2 componentes(retiene 83.8% de la inercia total) 
+se podria explicar   todas las 24 variables. 
 
-¿Cuantos componentes?
+**¿Cuantos componentes?**
 ```{r}
 
 library(ade4)
@@ -314,99 +341,12 @@ summary(acp)
 # Valores propios
 
 #el criterio de la media:
-
-#estamos trabajando con la matriz correlacion cada variable deberia retener  
-#1% de la inercia total , nos quedamos con los 3 primeros autovalores
-#que son mayores a 1.
 acp$eig 
-```
-Conclusion:
-
-3 componentes podemos explicar todas las 24 variables reteniendo 89.49 % de la inercia total.
-
-```{r}
-# con 3 componetes podemos explicar las todas las 24  variables 
-# reteniendo 89.49% de la inercia total
-inertia.dudi(acp)
-```
-
-¿Como estan agrupadas las variables?
-
-Nos basamos del criterio de las correlaciones 
-```{r}
-# Correlaciones entre las variables y los componentes
-
-
-
-acp$co[c(1,2,3)] 
-##############
-#componente1:#
-##############
-
-#caudal
-#temp
-#Turb
-#CE
-#SD
-#Akal
-#Di
-#Cls
-#so
-#NO3
-#NO2
-#PO
-#Cu
-#Al
-#Fe
-#Mu
-#Pb
-#Cd
-#Zn
-#As
-#Colo
-#Cole
-
-##############
-#componente2:#
-##############
-
-#OD
-
-##############
-#componente3:#
-##############
-
-#pH
-```
-
-```{r}
-# Segunda forma
-
-#podemos observar que todos las variables  estan asociados mas a la  
-#dimension 1,excepto "pH" y "OD" que no se sabe con exactitud si pertenece
-#a la dimension 1 o a la dimension2 de manera visual, pero con la matriz de
-#correlacion ya determinamos la variable "pH" pertenece al componente3 
-#y la variable "OD" pertenece al componente2
-
-
-library(factoextra)
-fviz_pca_var(acp, col.var="steelblue")+theme_minimal()
- 
-```
-
-
-```{r}
-
-#biplot
-
-library(factoextra)
-fviz_pca_biplot(acp, repel = F,
-                col.var = "steelblue",
-                col.ind = "black" )
-###indicadores
+#estamos trabajando con la matriz correlacion cada variable deberia retener  
+#1% de la inercia total , nos podemos quedar hasta  con 3 componenetes(89.49% inercia total) 
+#pero tambien con 2 componentes se retiene  83.79% (inercia total)
 
 ```
-
 
 
 ```{r}
@@ -420,14 +360,153 @@ fviz_eig(acp, addlabels=TRUE, hjust = -0.3,
          linecolor ="red") + ylim(0,80) + theme_minimal() 
 ```
 
+**Conclusion:**
+
+Con 2 componentes podemos explicar todas las 24 variables reteniendo 83.79%  % de la inercia total
+
 ```{r}
-# Scores o Puntuaciones de cada individuo
-acp$li[1:10,]
+#Por eso que en  la GRAFICA 1 , la agrupacion de los meses  en 3  cluster 
+#se explica   83.79% (inercia total).
+inertia.dudi(acp)
+```
+**ANALISIS DE COMPONENTES PRINCIPALES**
+
+Con 2  componentes principales
+
+```{r}
+
+acp <- dudi.pca(datosc,scannf=FALSE,nf=2) 
+summary(acp) 
+```
+
+¿Como estan agrupadas las variables?
+
+Nos basamos del criterio de las correlaciones 
+
+
+```{r}
+# Correlaciones entre las variables y los componentes
+
+
+#acp$c1 vectores propios
+acp$co[c(1,2)] 
 
 
 ```
 
+
+
+
+**componente1:#FACTORES DE NO AIREACION**
+
+
+caudal
+temp
+Turb
+CE
+SD
+Akal
+Di
+Cls
+so
+NO3
+NO2
+PO
+Cu
+Al
+Fe
+Mu
+Pb
+Cd
+Zn
+As
+Colo
+Cole
+
+
+
+
+**componente2:# FACTORES DE AIREACION**
+
+
+OD
+pH
+
+
+Un análisis realizados en los tanques de aireación para asegurar condiciones ideales, 
+los dos parámetros más importantes son el pH y el oxígeno disuelto (OD)
+El pH en tanques de aireación debe estar entre 
+6.5 a 8.5 para evitar el estrés en las colonias microbianas, y permitirles una actividad
+
+https://www.hannacolombia.com/aqua/blog/item/midiendo-ph-y-od-en-tanques-de-aireacion-de-aguas-residuales#:~:text=Adem%C#3%A1s%20de%20una%20variedad%20de,microbianas%2C%20y%20permitirles%20una%20actividad
+
+
+
+**GRAFICA 2**
+
 ```{r}
-# Gráfica de individuos sobre el primer plano de componentes
-s.label(acp$li,clabel=0.7,grid=FALSE,boxes=FALSE)
+
+library(factoextra)
+fviz_pca_var(acp, col.var="steelblue")+theme_minimal()
+
+#podemos observar que todos las variables  estan asociados mas a la  dimension1(componente1),
+#excepto las variables "pH" y "OD" que pertenecen a  la dimension2(componente2) pero 
+#con la matriz de correlacion ya determinamos la variable "pH" y "OD" pertenece a la dimension2.
+ 
+```
+
+
+**VARIABLES DE AIRIACION (PH Y OD )**,a medida que aumenta la  variable "PH" de manera inversamente
+proporcional la  variable "OD" disminuye (estan muy relacionados).
+
+**VARIABLES DE NO AIRIACION**, a medida que aumentan las variables(caudal,temperatura(temp),turbidez(Turb),
+cobre(Cu),aluminio(Al),Hierro(Fe),Manganeso(Mn),Plomo(Pb),cadmio(Cd),Zinc(Zn),Arsenico(As),
+Coliformes totales(CoTo),Coliformes termotolerables(Cote) de forma inversamente proporcional disminuye 
+las variables(Coductividad electrica(CE),Solidos Disuelto(SD),Alcalinidad(Akal),Dureza total(DI),cloruros(cls)
+,sulfatos(so),nitratos(NO3),nitritos(NO2),fosfatos(PO))
+
+
+**Por ejemplo con la variable "Alcalinidad(Akal)"**
+
+Una alta alcalinidad(Akal)
+
+**por ejemplo** a una alta alcalinidad(Akal) tambien afectara 
+de manera directa a las variables  (Coductividad electrica(CE),Solidos Disuelto(SD)
+,Dureza total(DI),cloruros(cls),sulfatos(so),nitratos(NO3),nitritos(NO2),fosfatos(PO)) 
+y tambien afectara de manera inversamente inversamente proporcional a las variables 
+(caudal,temperatura(temp),turbidez(Turb),cobre(Cu),aluminio(Al),Hierro(Fe),Manganeso(Mn),
+Plomo(Pb),cadmio(Cd),Zinc(Zn),Arsenico(As),Coliformes totales(CoTo),Coliformes termotolerables(Cote) .
+
+
+¿Si aumenta la cantidad de plomo(Pb) en el rio rimac ,afectara sobre en la Alcalinidad(AKal) ?
+
+Si aumenta la concentracion de plomo(Pb) afectara a la Alcalinidad(Akal) de manera negativa 
+es decir disminuye la  concentracion de alcalinidad.
+```{r}
+
+#biplot
+
+library(factoextra)
+fviz_pca_biplot(acp, repel = F,
+                col.var = "steelblue",
+                col.ind = "black" )
+###indicadores
+
+
+```
+
+En los meses de Marzo y febrero esta asociado 
+
+**SCORES** 
+
+Insumo para modelos predictivos como regresion lineal
+
+
+```{r}
+# Scores o Puntuaciones de cada individuo
+
+#10 primeros
+acp$li[1:10,]
+
+
 ```
