@@ -1,6 +1,11 @@
 # 3.METODOS {-}
 
-**3.1 APLICANDO CLUSTER JERARQUICO** 
+**3.1APLICANDO CLUSTER JERARQUICO** 
+
+***AGRUPAMIENTO DE INDIVIDUOS***
+
+
+
 
 ```{r}
 library(readxl)
@@ -41,7 +46,9 @@ plot_missing(datosc,ggtheme=theme_minimal())
 ```
 
 **CLUSTER JERARQUICO AGLOMERATIVO**
-Distanicia euclidiana  y metodo de enlace Ward.D2
+
+Distancia euclidiana  y metodo de enlace Ward.D2
+
 ```{r}
 
 
@@ -185,6 +192,7 @@ fviz_dend(res.hc, k=3, cex = 0.5,
 
 **GRAFICA#ACP con CLUSTER**
 
+GRAFICO 1 
 ```{r}
 
 
@@ -214,16 +222,93 @@ datos.j$grp <- factor(datos.j$grp)
 # write.csv(datos.j,"Compras con Jerarquico Aglomerativo.csv")
 ```
 
-**3.2Análisis de Componentes Principales con el paquete ade4**
-```{r}
-#CORROBORANDO
+**Analisis de componenentes principales:**
 
+
+ANALISIS EXPLORATORIO :
+```{r}
+library(GGally)
+ggcorr(datosc)
+
+#Se puede observar  que entre las 24 variables, hay correlaciones muy altas , correlaciones altas  y correlaciones medias.
+#esto podria traer problemas de multicolinealidad.
+```
+
+Prueba de Esfericidad de Bartlett
+
+```{r}
+library(psych)
+correlaciones<- corr.test(datosc) # se crea la matriz de correlaciones  
+#correlaciones$r                  # existe correlaciones  entre las variables   
+library(rela)
+r<-as.matrix(correlaciones$r)
+options(scipen=999)
+cortest.bartlett(r,nrow(datosc))
+
+
+
+
+# Prueba de Esfericidad de Bartlett
+
+#Prueba de Esfericidad de Bartlett
+#Ho: |Rp|=1 (las correlaciones teóricas entre cada par de variables es nulo)  
+#H1: |Rp|≠1 (las correlaciones teóricas entre cada par de variables NO es nulo)
+
+
+#conclusion:
+
+#p-valor < 0.05 ,
+#se rechaza la H0, se puede afirmar que las las correlaciones teóricas entre cada par de variables NO es nulo.
+
+#en otras palabras nuestra matriz correlacion es diferente a la matriz identidad
+#podemos realizar analisis de componentes principales.
+
+
+
+```
+
+Indicador Kaiser-Meyer-Olkinn KMO y MSA 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(psych)
+KMO(datosc)     #la advetencia que sale significa que mis varaibles estan altamente correlacionadas
+
+#Por otro lado el indicador "kmo" es superior igual 0.5 que indica que puedo trabajar con todas 
+#las 24 variables
+```
+
+
+**3.2Análisis de Componentes Principales con el paquete ade4**
+
+CORROBORANDO LA GRAFICA 1
+
+¿se podra explicar con 2 componentes todas las 24 variables ?
+
+vamos a comprobar:
+
+En el Grafico 1, se podia apreciar que  con 2 componentes(retiene 83.8% de la inercia total) se podria explicar   todas las 24 variables. 
+
+¿Cuantos componentes?
+```{r}
 
 library(ade4)
-#Usando 3 componentes 
-acp <- dudi.pca(datosc,scannf=FALSE,nf=3)
+
+acp <- dudi.pca(datosc,scannf=FALSE,nf=ncol(datosc)) 
 summary(acp) 
 ```
+- Podemos observar que con 2 componenetes retenemos 83.79 % de la inercia total
+
+- Podemos observar que con 3 componenetes retenemos 89.49 % de la inercia total
+
+- Podemos observar que con 4 componenetes retenemos 93.32 % de la inercia total
+
+- Podemos observar que con 5 componenetes retenemos 95.73 % de la inercia total
+
+
+
+
+
+**CRITERIO DE LA MEDIA**
 
 ```{r}
 # Valores propios
@@ -235,12 +320,19 @@ summary(acp)
 #que son mayores a 1.
 acp$eig 
 ```
+Conclusion:
+
+3 componentes podemos explicar todas las 24 variables reteniendo 89.49 % de la inercia total.
+
 ```{r}
-# con 3 componetes podemos explicar las demas variables 
-#reteniendo 89.49% de la inercia total
+# con 3 componetes podemos explicar las todas las 24  variables 
+# reteniendo 89.49% de la inercia total
 inertia.dudi(acp)
 ```
 
+¿Como estan agrupadas las variables?
+
+Nos basamos del criterio de las correlaciones 
 ```{r}
 # Correlaciones entre las variables y los componentes
 
@@ -292,7 +384,7 @@ acp$co[c(1,2,3)]
 
 #podemos observar que todos las variables  estan asociados mas a la  
 #dimension 1,excepto "pH" y "OD" que no se sabe con exactitud si pertenece
-#a la dimension 1 o a la dimension2 de manera visual, pero con nuestra matriz de
+#a la dimension 1 o a la dimension2 de manera visual, pero con la matriz de
 #correlacion ya determinamos la variable "pH" pertenece al componente3 
 #y la variable "OD" pertenece al componente2
 
