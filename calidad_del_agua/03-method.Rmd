@@ -2,7 +2,7 @@
 
 **3.1APLICANDO CLUSTER JERARQUICO** 
 
-***AGRUPAMIENTO DE INDIVIDUOS***
+***AGRUPAMIENTO DE MESES(INDIVIDUOS)***
 
 
 
@@ -40,6 +40,25 @@ library(DataExplorer)
 library(ggplot2)
 plot_missing(datosc,ggtheme=theme_minimal())
 ```
+
+**ANALISIS DESCRIPTIVO**
+```{r}
+library(zoo)
+library(PerformanceAnalytics)
+#pearson "escala de intervalo"#es mejor si el tamaño de muestra es mas grande.
+chart.Correlation(datosc, histogram=TRUE, method = c("pearson"), pch=20) 
+```
+Se observa que 22  variables  sus coeficientes de pearson es alto, es decir las variables 
+se encuentran altamente correlacionados excepto   las variables (PH) y oxigeno disuelto(OD) 
+son las que tienen una menor correlacion de pearson,
+es decir las variables se encuentran  poco correlacionados con las demas variables.
+
+
+El autor de la tesis aplico una prueba no parametrica basado en el coeficiente de "sperman"
+(cuadro 5,pdf),esta es mas adecuada cuando las variables son tipo escala ordinal.
+
+
+
 ```{r}
 #estandarizamos los datos porque las variables se encuentran en diferentes escalas
  datosc <- as.data.frame(scale(datosc))
@@ -246,14 +265,14 @@ ggcorr(datosc)
 **Prueba de Esfericidad de Bartlett**
 
 ```{r}
-library(psych)
-correlaciones<- corr.test(datosc) # se crea la matriz de correlaciones  
-#correlaciones$r                  # existe correlaciones  entre las variables   
+
 library(rela)
-r<-as.matrix(correlaciones$r)
+library(ggplot2)
+
+r<-as.matrix(round(correlaciones$r,2))  #matriz de correlaciones con 2 decimales
 options(scipen=999)
-n<-dim(datosc) ;n
-cortest.bartlett(r,nrow(datosc))
+#n<-dim(datosc)   #12 filas y  24 columnas                    
+cortest.bartlett(r,n=nrow(datosc))
 ```
 
 ```{r}
@@ -261,7 +280,14 @@ cortest.bartlett(r,nrow(datosc))
 
 #Puede ser que nuestras variables estan altamente correlacionadas,
 #verficamos la determinante de la matriz correlacion de las variables.
-det(correlaciones$r)
+
+library(psych)
+correlaciones<- corr.test(datosc) # se crea la matriz de correlaciones  
+
+
+#correlaciones$r                  # matriz correlaciones,las correlaciones 
+                                  # entre las variables son altas
+Rp=det(round(correlaciones$r,2))   ;Rp
 #si la determinante de la matriz correlacion es muy 
 #pequeña pero no es cero indica que mis variables
 #estan altamente intercorrelaciones.
@@ -491,11 +517,11 @@ fviz_pca_biplot(acp, repel = F,
                 col.var = "steelblue",
                 col.ind = "black" )
 ###indicadores
-
-
+library(FactoClass)
+plot.dudi(acp)
 ```
 
-En los meses de Marzo y febrero esta asociado 
+En los meses de Marzo y febrero esta asociado a las variables(As,)
 
 **SCORES** 
 
@@ -510,3 +536,11 @@ acp$li[1:10,]
 
 
 ```
+
+
+Practicamente no  estan correlacionados los componentes (-0.00000000000000005023342)
+
+```{r}
+cor(acp$li)
+```
+
